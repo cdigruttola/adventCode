@@ -12,7 +12,7 @@ long long findWeakness(std::vector<long long> numbers) {
 	long long weakness = 0;
 	for (int i = preamble; i < numbers.size(); ++i) {
 		bool foundCorrect = false;
-		for (int first = 0; first < preamble; ++first) {
+		for (int first = 0; first < preamble && !foundCorrect; ++first) {
 			for (int second = 0; second < preamble; ++second) {
 				if (numbers[i] == (numbers[first + i - preamble] + numbers[second + i - preamble])) {
 					foundCorrect = true;
