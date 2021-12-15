@@ -128,12 +128,11 @@ void print(std::set<Point>& points) {
             max_y = elem.m_y;
         }
     }
-    std::cout << "max x " << max_x << " max y " << max_y << std::endl;
     for (int i = 0; i <= max_y; i++) {
         for (int j = 0; j <= max_x; j++) {
             Point p(j, i);
             if(points.find(p) == points.end()) {
-                std::cout << ".";
+                std::cout << " ";
             }
             else {
                 std::cout << "#";

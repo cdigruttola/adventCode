@@ -8,9 +8,12 @@
 #include <algorithm>
 #include <numeric>
 #include <regex>
+#include <thread>
 
 void print_steps(std::vector<std::vector<int>>& input, int step) {
 #ifdef DEBUG
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::system("clear");
     std::cout << "Step " << step << std::endl;
     for (int i = 0; i < input.size(); i++) {
         for (int j = 0; j < input[i].size(); j++) {
@@ -79,27 +82,9 @@ int main(int argc, char *argv[]) {
     file.close();
 
     print_steps(input, 0);
-    long nr_flashes = 0;
-    int k = 0;
-    for (k; k < 100; k++) {
-        for (int i = 0; i < input.size(); i++) {
-            for (int j = 0; j < input[i].size(); j++) {
-                input[i][j]++;
-            }
-        }
-        for (int i = 0; i < input.size(); i++) {
-            for (int j = 0; j < input[i].size(); j++) {
-                if (input[i][j] > 9) {
-                    flash(i, j, input, nr_flashes);
-                }
-            }
-        }        
-        print_steps(input, k + 1);
-    }
-
-   std::cout << "First exercise: " << nr_flashes << std::endl;
- 
+    long nr_flashes = 0; 
     bool synchronised = false;
+    int k = 0;
     while (!synchronised) {
         k++;
         for (int i = 0; i < input.size(); i++) {
@@ -115,6 +100,9 @@ int main(int argc, char *argv[]) {
             }
         }
         print_steps(input, k + 1);
+        if (k == 100) {
+            std::cout << "First exercise: " << nr_flashes << std::endl;
+        }
         synchronised = check_synchronised(input);
     }
 
